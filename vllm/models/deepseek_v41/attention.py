@@ -280,6 +280,15 @@ class DeepseekV4Attention(nn.Module, AttentionLayerBase, ABC):
         candidate_block_buffer: torch.Tensor | None = None,
     ) -> None:
         super().__init__()
+        from vllm_dsv41_h20.config import (
+            get_options,
+            supported_topology,
+            validate_model_config,
+        )
+
+        validate_model_config(vllm_config)
+        self._h20_options = get_options()
+        self._h20_tp8 = supported_topology(vllm_config.parallel_config)
         config = vllm_config.model_config.hf_config
         quant_config = vllm_config.quant_config
         cache_config = vllm_config.cache_config
@@ -952,6 +961,22 @@ class DeepseekV4Attention(nn.Module, AttentionLayerBase, ABC):
             compressor = self.compressor
 
             def compressor_kv_score() -> torch.Tensor:
+                if (
+                    self._h20_options.enabled("compressor_shard")
+                    and self._h20_tp8
+                    and hidden_states.shape[0] >= self._h20_options.compressor_min_rows
+                ):
+                    from vllm.distributed import get_tp_group
+                    from vllm_dsv41_h20.config import eligible_tensor, record_path
+                    from vllm_dsv41_h20.distributed import project_rows
+
+                    if eligible_tensor(hidden_states, "compressor_shard"):
+                        record_path("compressor_shard")
+                        return project_rows(
+                            hidden_states,
+                            compressor.fused_wkv_wgate.weight,
+                            get_tp_group(),
+                        )
                 return torch.mm(
                     hidden_states,
                     compressor.fused_wkv_wgate.weight.T,
@@ -976,8 +1001,12 @@ class DeepseekV4Attention(nn.Module, AttentionLayerBase, ABC):
             self.ln_events[0],
             self.ln_events[1:3],
             aux_streams,
-            enable=hidden_states.shape[0]
-            <= envs.VLLM_MULTI_STREAM_GEMM_TOKEN_THRESHOLD,
+            enable=hidden_states.shape[0] <= envs.VLLM_MULTI_STREAM_GEMM_TOKEN_THRESHOLD
+            and not (
+                self._h20_options.enabled("compressor_shard")
+                and self._h20_tp8
+                and hidden_states.shape[0] >= self._h20_options.compressor_min_rows
+            ),
         )
 
         return qr_kv, kv_score, indexer_weights

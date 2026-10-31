@@ -1,0 +1,39 @@
+name: DSv4.1 H20 portable contracts
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'vllm_dsv41_h20/**'
+      - 'tests/kernels/dsv41_h20/**'
+      - 'requirements/h20-cpu.txt'
+      - '.github/workflows/dsv41-h20-portable.yml'
+  pull_request:
+    paths:
+      - 'vllm_dsv41_h20/**'
+      - 'tests/kernels/dsv41_h20/**'
+      - 'requirements/h20-cpu.txt'
+      - '.github/workflows/dsv41-h20-portable.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
+        with:
+          python-version: '3.12'
+      - run: uv venv --python 3.12
+      - run: uv pip install --python .venv/bin/python -r requirements/h20-cpu.txt
+      - name: Test references and communication layouts
+        env:
+          PYTHONPATH: .
+        run: >-
+          .venv/bin/python -m pytest
+          -c tests/kernels/dsv41_h20/pytest.ini
+          --confcutdir=tests/kernels/dsv41_h20
+          tests/kernels/dsv41_h20 -q

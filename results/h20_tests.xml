@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="11" tests="48" time="1.391" timestamp="2026-11-01T00:16:49.559396+08:00">
+    <testcase classname="test_cuda" name="test_compact_cuda_scores_with_multiple_requests_and_physical_pages[False]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:22: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_compact_cuda_scores_with_multiple_requests_and_physical_pages[True]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:22: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[1-1-160-65]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[1-8-512-128]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[1-16-5120-1280]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[4-1-160-65]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[4-8-512-128]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[4-16-5120-1280]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[8-1-160-65]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[8-8-512-128]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_cuda" name="test_small_m_cuda_against_dequantized_reference[8-16-5120-1280]" time="0.000">
+      <skipped type="pytest.skip" message="requires an SM90 CUDA GPU; Mac is reference-only">tests/kernels/dsv41_h20/test_cuda.py:96: requires an SM90 CUDA GPU; Mac is reference-only</skipped>
+    </testcase>
+    <testcase classname="test_portable" name="test_mxfp4_all_nibbles_sign_and_scale" time="0.420" />
+    <testcase classname="test_portable" name="test_compact_matches_independent_full_mask_with_causal_tail[1-17-4-9]" time="0.018" />
+    <testcase classname="test_portable" name="test_compact_matches_independent_full_mask_with_causal_tail[7-65-8-20]" time="0.011" />
+    <testcase classname="test_portable" name="test_compact_ties_duplicates_empty_and_nonfinite" time="0.002" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[1-1-32-7]" time="0.005" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[1-3-160-65]" time="0.002" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[1-16-512-128]" time="0.002" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[2-1-32-7]" time="0.001" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[2-3-160-65]" time="0.001" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[2-16-512-128]" time="0.002" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[4-1-32-7]" time="0.001" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[4-3-160-65]" time="0.001" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[4-16-512-128]" time="0.002" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[8-1-32-7]" time="0.001" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[8-3-160-65]" time="0.001" />
+    <testcase classname="test_portable" name="test_group32_split_k_against_independent_float64[8-16-512-128]" time="0.002" />
+    <testcase classname="test_portable" name="test_projection_gather_preserves_uneven_rows[0]" time="0.002" />
+    <testcase classname="test_portable" name="test_projection_gather_preserves_uneven_rows[1]" time="0.001" />
+    <testcase classname="test_portable" name="test_projection_gather_preserves_uneven_rows[7]" time="0.001" />
+    <testcase classname="test_portable" name="test_projection_gather_preserves_uneven_rows[8]" time="0.001" />
+    <testcase classname="test_portable" name="test_projection_gather_preserves_uneven_rows[9]" time="0.001" />
+    <testcase classname="test_portable" name="test_projection_gather_preserves_uneven_rows[129]" time="0.001" />
+    <testcase classname="test_portable" name="test_head_exchange_preserves_rank_and_head_order[0]" time="0.002" />
+    <testcase classname="test_portable" name="test_head_exchange_preserves_rank_and_head_order[1]" time="0.001" />
+    <testcase classname="test_portable" name="test_head_exchange_preserves_rank_and_head_order[7]" time="0.001" />
+    <testcase classname="test_portable" name="test_head_exchange_preserves_rank_and_head_order[8]" time="0.001" />
+    <testcase classname="test_portable" name="test_head_exchange_preserves_rank_and_head_order[9]" time="0.002" />
+    <testcase classname="test_portable" name="test_head_exchange_preserves_rank_and_head_order[129]" time="0.002" />
+    <testcase classname="test_portable" name="test_attention_exchange_with_distinct_sinks_and_per_row_sparse_indices" time="0.005" />
+    <testcase classname="test_portable" name="test_communication_units_and_padded_bytes" time="0.001" />
+    <testcase classname="test_portable" name="test_bad_options_fail_at_construction[env0]" time="0.001" />
+    <testcase classname="test_portable" name="test_bad_options_fail_at_construction[env1]" time="0.001" />
+    <testcase classname="test_portable" name="test_bad_options_fail_at_construction[env2]" time="0.001" />
+    <testcase classname="test_portable" name="test_bad_options_fail_at_construction[env3]" time="0.001" />
+    <testcase classname="test_portable" name="test_disabled_and_unsupported_paths_do_not_import_cuda" time="0.001" />
+    <testcase classname="test_portable" name="test_only_supported_collective_topology" time="0.001" />
+    <testcase classname="test_portable" name="test_small_m_retention_survives_backend_weight_repacking" time="0.002" />
+  </testsuite>
+</testsuites>

@@ -649,6 +649,32 @@ def sparse_attn_indexer(
             q_scale_slice = q_scale[row_start:row_end] if q_scale is not None else None
             topk_indices = topk_indices_buffer[row_start:row_end, :topk_tokens]
 
+            if (
+                use_fp4_cache
+                and candidate_blocks is not None
+                and not candidate_write
+                and not use_pcp
+                and dcp_world_size == 1
+                and chunk.local_total_seq_lens > 0
+            ):
+                from vllm_dsv41_h20.indexer import try_compact_scores
+
+                compact = try_compact_scores(
+                    q_slice,
+                    q_scale_slice,
+                    k_quant,
+                    k_scale,
+                    weights[row_start:row_end],
+                    candidate_blocks[row_start:row_end],
+                    candidate_block_size,
+                    cu_seqlen_ks,
+                    cu_seqlen_ke,
+                    topk_tokens,
+                )
+                if compact is not None:
+                    topk_indices.copy_(compact)
+                    continue
+
             if chunk.local_total_seq_lens == 0 or q_slice.shape[0] == 0:
                 logits = q_slice.new_empty((q_slice.shape[0], 0), dtype=torch.float32)
                 topk_indices.fill_(-1)
@@ -806,6 +832,39 @@ def sparse_attn_indexer(
             if use_fp4_cache
             else padded_q_quant_decode_tokens
         )
+        if (
+            use_fp4_cache
+            and candidate_blocks is not None
+            and not candidate_write
+            and not use_pcp
+            and dcp_world_size == 1
+            and not needs_padded_path
+            and num_decode_tokens > 0
+        ):
+            from vllm_dsv41_h20.indexer import try_compact_scores
+
+            assert q_scale is not None
+            visible = seq_lens.reshape(-1)
+            if visible.numel() != num_padded_tokens:
+                visible = visible.repeat_interleave(next_n)
+            compact = try_compact_scores(
+                q_quant[:num_decode_tokens],
+                q_scale[:num_decode_tokens],
+                kv_cache,
+                None,
+                weights[:num_decode_tokens],
+                candidate_blocks[:num_decode_tokens],
+                candidate_block_size,
+                torch.zeros_like(visible),
+                visible,
+                topk_tokens,
+                block_table=decode_metadata.block_table,
+                page_size=kv_cache.shape[1],
+                next_n=next_n,
+            )
+            if compact is not None:
+                topk_indices_buffer[:num_decode_tokens, :topk_tokens].copy_(compact)
+                return topk_indices_buffer
         if current_platform.is_xpu():
             if padded_q_scale is not None:
                 raise RuntimeError("XPU fp8_paged_mqa_logits does not support FP4 Q")

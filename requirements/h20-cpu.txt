@@ -1,0 +1,4 @@
+# Portable tests only. CUDA installations must use the upstream CUDA requirements.
+torch==2.13.0
+numpy==2.5.4
+pytest==9.2.0

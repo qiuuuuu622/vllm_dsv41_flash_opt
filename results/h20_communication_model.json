@@ -1,0 +1,111 @@
+{
+  "timestamp_utc": "2026-10-31T16:07:04.525711+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.12.13",
+  "torch": "2.13.0",
+  "seed": 20261031,
+  "mode": "communication",
+  "baseline": "vllm v0.32.0 / 5df63a7203cdb9328d824a27b682e77c7b9928be",
+  "results": {
+    "scope": "Analytical pairwise/ring model; assumptions, not measurements.",
+    "compressor_example_M_K_N": [
+      16384,
+      5120,
+      1024
+    ],
+    "compressor_dense_FLOPs_per_rank": 171798691840,
+    "compressor_shard_FLOPs_per_rank": 21474836480,
+    "head_example_M_Hlocal_D": [
+      128,
+      8,
+      512
+    ],
+    "head_old_padded_row_heads_per_rank": 8192,
+    "head_new_row_heads_per_rank": 1024,
+    "scenarios": [
+      {
+        "assumed_effective_GB_per_s": 50,
+        "assumed_startup_us_per_round": 2,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 1188.40512,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 78.70464
+      },
+      {
+        "assumed_effective_GB_per_s": 50,
+        "assumed_startup_us_per_round": 5,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 1209.40512,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 141.70463999999998
+      },
+      {
+        "assumed_effective_GB_per_s": 50,
+        "assumed_startup_us_per_round": 10,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 1244.40512,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 246.70463999999998
+      },
+      {
+        "assumed_effective_GB_per_s": 100,
+        "assumed_startup_us_per_round": 2,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 601.20256,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 60.35232
+      },
+      {
+        "assumed_effective_GB_per_s": 100,
+        "assumed_startup_us_per_round": 5,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 622.20256,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 123.35231999999999
+      },
+      {
+        "assumed_effective_GB_per_s": 100,
+        "assumed_startup_us_per_round": 10,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 657.20256,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 228.35232
+      },
+      {
+        "assumed_effective_GB_per_s": 200,
+        "assumed_startup_us_per_round": 2,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 307.60128,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 51.176159999999996
+      },
+      {
+        "assumed_effective_GB_per_s": 200,
+        "assumed_startup_us_per_round": 5,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 328.60128,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 114.17616
+      },
+      {
+        "assumed_effective_GB_per_s": 200,
+        "assumed_startup_us_per_round": 10,
+        "compressor_full_gather_bytes": 67108864,
+        "compressor_remote_send_bytes_per_rank": 58720256,
+        "compressor_exposed_comm_us": 363.60128,
+        "head_each_exchange_total_send_bytes_per_rank": 1048576,
+        "head_total_comm_including_sinks_us": 219.17615999999998
+      }
+    ],
+    "break_even_rule": "measured original compute - local compute - packing/planner overhead must exceed exposed communication"
+  }
+}

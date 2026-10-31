@@ -1,0 +1,18 @@
+{
+  "device": "CPU",
+  "backend": "gloo",
+  "world_size": 8,
+  "rows": 129,
+  "projection_M_N_K": [
+    129,
+    1024,
+    512
+  ],
+  "projection_max_abs_error": 0.0,
+  "projection_dense_ms": 1.3981044292449951,
+  "projection_shard_gather_ms": 5.331937551498413,
+  "projection_speedup_measured": 0.26221320406351933,
+  "heads_roundtrip_exact": true,
+  "two_exchanges_and_packing_ms": 3.211145520210266,
+  "scope": "Real process-group transport. CPU/Gloo is not NVLink. Not FlashMLA or model-level validation."
+}

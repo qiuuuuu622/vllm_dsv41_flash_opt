@@ -227,6 +227,24 @@ class DeepseekV4FlashMLAAttention(DeepseekV4Attention):
             "allocate one for this layer type."
         )
 
+        if self._h20_options.enabled("head_exchange"):
+            from vllm_dsv41_h20.attention import try_head_exchange
+
+            if try_head_exchange(
+                self,
+                q.squeeze(1),
+                kv_cache if not swa_only else None,
+                swa_cache,
+                swa_metadata,
+                swa_indices,
+                swa_lens,
+                topk_indices,
+                topk_lens,
+                tile_metadata,
+                output,
+            ):
+                return
+
         out, _ = flash_mla_with_kvcache(
             q=q,
             k_cache=swa_cache,

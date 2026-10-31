@@ -1,0 +1,18 @@
+group: DSv4.1 H20 experimental kernels
+depends_on:
+  - image-build
+steps:
+  - label: ":nvidia: (H100) DSv4.1 H20 kernel contracts"
+    key: dsv41-h20-kernel-contracts
+    device: h100
+    timeout_in_minutes: 30
+    working_dir: "/vllm-workspace/"
+    source_file_dependencies:
+      - vllm_dsv41_h20/
+      - tests/kernels/dsv41_h20/
+      - vllm/models/deepseek_v41/
+      - vllm/model_executor/kernels/linear/mxfp8/
+      - vllm/model_executor/layers/sparse_attn_indexer.py
+    commands:
+      - uv venv --system-site-packages --python 3.12
+      - PYTHONPATH=. .venv/bin/python -m pytest -c tests/kernels/dsv41_h20/pytest.ini --confcutdir=tests/kernels/dsv41_h20 tests/kernels/dsv41_h20 -v

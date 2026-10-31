@@ -43,6 +43,13 @@ class MarlinMxfp8LinearKernel(Mxfp8LinearKernel):
         from vllm.model_executor.layers.quantization.utils.marlin_utils_fp8 import (
             prepare_mxfp8_layer_for_marlin,
         )
+        from vllm_dsv41_h20.config import get_options
+
+        if get_options().enabled("small_m_gemm"):
+            from vllm.config import get_current_vllm_config
+            from vllm_dsv41_h20.linear import retain_small_m_weights
+
+            retain_small_m_weights(layer, get_current_vllm_config())
 
         prepare_mxfp8_layer_for_marlin(layer)
 
@@ -55,6 +62,13 @@ class MarlinMxfp8LinearKernel(Mxfp8LinearKernel):
         from vllm.model_executor.layers.quantization.utils.marlin_utils_fp8 import (
             apply_mxfp8_marlin_linear,
         )
+
+        if hasattr(layer, "_h20_weight"):
+            from vllm_dsv41_h20.linear import try_small_m_linear
+
+            result = try_small_m_linear(layer, x, bias)
+            if result is not None:
+                return result
 
         return apply_mxfp8_marlin_linear(
             input=x,

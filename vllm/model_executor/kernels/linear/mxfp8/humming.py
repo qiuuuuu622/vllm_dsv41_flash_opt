@@ -41,6 +41,13 @@ class HummingMxfp8LinearKernel(Mxfp8LinearKernel):
         return True, None
 
     def process_weights_after_loading(self, layer: torch.nn.Module) -> None:
+        from vllm_dsv41_h20.config import get_options
+
+        if get_options().enabled("small_m_gemm"):
+            from vllm.config import get_current_vllm_config
+            from vllm_dsv41_h20.linear import retain_small_m_weights
+
+            retain_small_m_weights(layer, get_current_vllm_config())
         layer.weight_scale.data = layer.weight_scale.data.view(torch.float8_e8m0fnu)
         name_map = {"weight": "weight", "weight_scale": "weight_scale"}
 
@@ -66,6 +73,12 @@ class HummingMxfp8LinearKernel(Mxfp8LinearKernel):
         x: torch.Tensor,
         bias: torch.Tensor | None = None,
     ) -> torch.Tensor:
+        if hasattr(layer, "_h20_weight"):
+            from vllm_dsv41_h20.linear import try_small_m_linear
+
+            result = try_small_m_linear(layer, x, bias)
+            if result is not None:
+                return result
         return apply_humming_linear(
             layer,
             x,
