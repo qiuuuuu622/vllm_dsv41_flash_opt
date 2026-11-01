@@ -6,10 +6,8 @@ import pytest
 import torch
 
 from vllm_dsv41_h20.reference import (
-    block32_gemm_reference,
     canonical_candidates,
     compact_scores_reference,
-    quantize_group32_reference,
     unpack_mxfp4,
 )
 
@@ -91,19 +89,3 @@ def test_compact_cuda_scores_with_multiple_requests_and_physical_pages(paged):
             starts + lengths,
         )
     torch.testing.assert_close(actual, expected, rtol=2e-5, atol=2e-3)
-
-
-@pytest.mark.parametrize("m,k,n", [(1, 160, 65), (8, 512, 128), (16, 5120, 1280)])
-@pytest.mark.parametrize("split_k", [1, 4, 8])
-def test_small_m_cuda_against_dequantized_reference(m, k, n, split_k):
-    from vllm_dsv41_h20.kernels import small_m_block32_gemm
-
-    torch.manual_seed(17)
-    x = torch.randn(m, k, device="cuda", dtype=torch.bfloat16)
-    weight, sw = quantize_group32_reference(torch.randn(n, k, device="cuda"))
-    a, sa = quantize_group32_reference(x)
-    scale_bytes = (sw.log2() + 127).to(torch.uint8)
-    bias = torch.randn(n, device="cuda", dtype=torch.bfloat16)
-    expected = (block32_gemm_reference(a, sa, weight, sw) + bias.float()).bfloat16()
-    actual = small_m_block32_gemm(x, weight, scale_bytes, split_k=split_k, bias=bias)
-    torch.testing.assert_close(actual, expected, rtol=1e-2, atol=0.0625)

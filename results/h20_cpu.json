@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-10-31T16:07:03.253901+00:00",
+  "timestamp_utc": "2026-11-01T00:54:08.284160+00:00",
   "platform": "macOS-27.0.1-arm64-arm-64bit",
   "machine": "arm64",
   "python": "3.12.13",
@@ -24,58 +24,8 @@
         "max_abs": 0.0,
         "normalized_rmse": 0.0
       },
-      "cpu_compact_reference_ms": 0.3257910721004009
+      "cpu_compact_reference_ms": 0.31970907002687454
     },
-    "small_m": [
-      {
-        "M_N_K": [
-          1,
-          1280,
-          5120
-        ],
-        "split4_vs_split1": {
-          "max_abs": 3.0517578125e-05,
-          "normalized_rmse": 7.52331033027076e-08
-        },
-        "activation_quantization_vs_unquantized": {
-          "max_abs": 5.952056884765625,
-          "normalized_rmse": 0.027232468128204346
-        },
-        "cpu_split4_reference_ms": 5.73654193431139
-      },
-      {
-        "M_N_K": [
-          4,
-          1280,
-          5120
-        ],
-        "split4_vs_split1": {
-          "max_abs": 4.57763671875e-05,
-          "normalized_rmse": 1.0233572567130977e-07
-        },
-        "activation_quantization_vs_unquantized": {
-          "max_abs": 6.291103363037109,
-          "normalized_rmse": 0.026705218479037285
-        },
-        "cpu_split4_reference_ms": 6.542374845594168
-      },
-      {
-        "M_N_K": [
-          16,
-          1280,
-          5120
-        ],
-        "split4_vs_split1": {
-          "max_abs": 7.62939453125e-05,
-          "normalized_rmse": 1.0501829450504374e-07
-        },
-        "activation_quantization_vs_unquantized": {
-          "max_abs": 7.511577606201172,
-          "normalized_rmse": 0.026688961312174797
-        },
-        "cpu_split4_reference_ms": 6.519999820739031
-      }
-    ],
     "compressor": {
       "M_N_K": [
         2049,
@@ -87,7 +37,7 @@
         "max_abs": 0.0,
         "normalized_rmse": 0.0
       },
-      "cpu_serial_shards_ms": 0.4421668127179146
+      "cpu_serial_shards_ms": 0.436791917309165
     },
     "head_exchange": {
       "M_H_D": [

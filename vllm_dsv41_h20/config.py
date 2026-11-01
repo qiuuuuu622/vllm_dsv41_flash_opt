@@ -6,16 +6,12 @@ import os
 from dataclasses import dataclass
 from functools import cache, lru_cache
 
-FEATURES = frozenset(
-    {"compact_indexer", "small_m_gemm", "compressor_shard", "head_exchange"}
-)
+FEATURES = frozenset({"compact_indexer", "compressor_shard", "head_exchange"})
 
 
 @dataclass(frozen=True)
 class H20Options:
     features: frozenset[str] = frozenset()
-    small_m_max: int = 16
-    split_k: int = 4
     compressor_min_rows: int = 2048
     head_min_rows: int = 128
     indexer_max_scores: int = 16 * 1024 * 1024
@@ -31,8 +27,6 @@ class H20Options:
             raise ValueError(f"Unknown H20 optimizations: {sorted(unknown)}")
         values = {}
         for field, suffix in (
-            ("small_m_max", "SMALL_M_MAX"),
-            ("split_k", "SPLIT_K"),
             ("compressor_min_rows", "COMPRESSOR_MIN_ROWS"),
             ("head_min_rows", "HEAD_MIN_ROWS"),
             ("indexer_max_scores", "INDEXER_MAX_SCORES"),
@@ -42,10 +36,6 @@ class H20Options:
                 values[field] = int(value)
                 if values[field] < 1:
                     raise ValueError(f"{suffix} must be positive")
-        if values.get("split_k", 4) not in (1, 2, 4, 8):
-            raise ValueError("SPLIT_K must be 1, 2, 4 or 8")
-        if values.get("small_m_max", 16) > 16:
-            raise ValueError("SMALL_M_MAX must be at most 16")
         return cls(features=names, **values)
 
     def enabled(self, name: str) -> bool:

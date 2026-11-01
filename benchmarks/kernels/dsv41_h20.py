@@ -26,11 +26,9 @@ from vllm_dsv41_h20.layout import (
     unpack_rows_to_heads,
 )
 from vllm_dsv41_h20.reference import (
-    block32_gemm_reference,
     canonical_candidates,
     compact_scores_reference,
     compact_topk,
-    quantize_group32_reference,
     unpack_mxfp4,
 )
 
@@ -100,30 +98,6 @@ def cpu_results():
             lambda: compact_scores_reference(q, keys, weights, positions, visible)
         ),
     }
-    gemms = []
-    for m in (1, 4, 16):
-        x = torch.randn(m, 5120).bfloat16()
-        w, sw = quantize_group32_reference(torch.randn(1280, 5120).bfloat16())
-        a, sa = quantize_group32_reference(x)
-        one = block32_gemm_reference(a, sa, w, sw, 1)
-        four = block32_gemm_reference(a, sa, w, sw, 4)
-        weight_dequant = w.float() * sw.repeat_interleave(32, -1)
-        unquantized_activation = x.float() @ weight_dequant.T
-        gemms.append(
-            {
-                "M_N_K": [m, 1280, 5120],
-                "split4_vs_split1": errors(four, one),
-                "activation_quantization_vs_unquantized": errors(
-                    one, unquantized_activation
-                ),
-                "cpu_split4_reference_ms": median_ms(
-                    lambda a=a, sa=sa, w=w, sw=sw: block32_gemm_reference(
-                        a, sa, w, sw, 4
-                    ),
-                    iterations=3,
-                ),
-            }
-        )
     x, w = torch.randn(2049, 256).bfloat16(), torch.randn(128, 256).bfloat16()
     shard_result = sharded_projection_reference(x, w, 8)
     projection = {
@@ -141,7 +115,6 @@ def cpu_results():
     restored = torch.cat([unpack_rows_to_heads(x, 129) for x in receives], dim=1)
     return {
         "indexer": indexer,
-        "small_m": gemms,
         "compressor": projection,
         "head_exchange": {"M_H_D": list(q.shape), "error": errors(restored, q)},
         "timing_scope": (
@@ -192,16 +165,9 @@ def cuda_results():
         raise RuntimeError(
             "CUDA benchmark requires SM90 (H20 or H100); no fabricated result"
         )
-    from vllm_dsv41_h20.kernels import compact_mxfp4_scores, small_m_block32_gemm
+    from vllm_dsv41_h20.kernels import compact_mxfp4_scores
 
     torch.manual_seed(20261031)
-    x = torch.randn(4, 5120, device="cuda", dtype=torch.bfloat16)
-    w, sw = quantize_group32_reference(torch.randn(1280, 5120, device="cuda"))
-    a, sa = quantize_group32_reference(x)
-    scale = (sw.log2() + 127).to(torch.uint8)
-    expected = block32_gemm_reference(a, sa, w, sw).bfloat16()
-    actual = small_m_block32_gemm(x, w, scale)
-    torch.testing.assert_close(actual, expected, rtol=1e-2, atol=0.0625)
     q = torch.randint(0, 256, (8, 32, 64), device="cuda", dtype=torch.uint8)
     qs = torch.full((8, 32, 4), 125, device="cuda", dtype=torch.uint8)
     keys = torch.randint(0, 256, (8192, 64), device="cuda", dtype=torch.uint8)
@@ -223,10 +189,6 @@ def cuda_results():
     torch.testing.assert_close(actual_scores, expected_scores, rtol=2e-5, atol=2e-3)
     return {
         "device": torch.cuda.get_device_name(),
-        "small_m_error": errors(actual, expected),
-        "small_m_kernel_ms_including_quantization": median_ms(
-            lambda: small_m_block32_gemm(x, w, scale), cuda=True
-        ),
         "compact_score_error": errors(actual_scores, expected_scores),
         "compact_score_only_ms": median_ms(score, cuda=True),
         "compact_score_and_topk_ms": median_ms(

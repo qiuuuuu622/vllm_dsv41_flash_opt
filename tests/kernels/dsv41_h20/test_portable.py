@@ -26,11 +26,9 @@ from vllm_dsv41_h20.layout import (
 )
 from vllm_dsv41_h20.reference import (
     E2M1,
-    block32_gemm_reference,
     canonical_candidates,
     compact_scores_reference,
     compact_topk,
-    quantize_group32_reference,
     unpack_mxfp4,
 )
 
@@ -97,18 +95,6 @@ def test_compact_ties_duplicates_empty_and_nonfinite():
     assert compact_topk(scores, torch.arange(3).view(1, -1), 3).tolist() == [
         [2, -1, -1]
     ]
-
-
-@pytest.mark.parametrize("m,k,n", [(1, 32, 7), (3, 160, 65), (16, 512, 128)])
-@pytest.mark.parametrize("splits", [1, 2, 4, 8])
-def test_group32_split_k_against_independent_float64(m, k, n, splits):
-    a, sa = quantize_group32_reference(torch.randn(m, k).bfloat16())
-    w, sw = quantize_group32_reference(torch.randn(n, k).bfloat16())
-    expected = (a.double() * sa.double().repeat_interleave(32, -1)) @ (
-        w.double() * sw.double().repeat_interleave(32, -1)
-    ).T
-    actual = block32_gemm_reference(a, sa, w, sw, split_k=splits)
-    torch.testing.assert_close(actual.double(), expected, rtol=2e-5, atol=3e-5)
 
 
 @pytest.mark.parametrize("rows", [0, 1, 7, 8, 9, 129])
@@ -184,9 +170,9 @@ def test_communication_units_and_padded_bytes():
 @pytest.mark.parametrize(
     "env",
     [
-        {"VLLM_DSV41_H20_OPT": "typo"},
-        {"VLLM_DSV41_H20_SPLIT_K": "3"},
-        {"VLLM_DSV41_H20_SMALL_M_MAX": "17"},
+        {"VLLM_DSV41_H20_OPT": "small_m_gemm"},
+        {"VLLM_DSV41_H20_INDEXER_MAX_SCORES": "0"},
+        {"VLLM_DSV41_H20_COMPRESSOR_MIN_ROWS": "0"},
         {"VLLM_DSV41_H20_HEAD_MIN_ROWS": "0"},
     ],
 )
@@ -229,25 +215,3 @@ def test_only_supported_collective_topology():
     assert supported_topology(parallel)
     parallel.prefill_context_parallel_size = 8
     assert not supported_topology(parallel)
-
-
-def test_small_m_retention_survives_backend_weight_repacking(monkeypatch):
-    from vllm_dsv41_h20 import linear
-
-    layer = torch.nn.Module()
-    layer.prefix = "model.layers.0.attn.wq_b"
-    layer.register_buffer("weight", torch.randn(8, 64).to(torch.float8_e4m3fn))
-    layer.register_buffer("weight_scale", torch.full((8, 2), 127, dtype=torch.uint8))
-    original = layer.weight.float().clone()
-    config = SimpleNamespace(
-        model_config=SimpleNamespace(
-            enforce_eager=True,
-            hf_config=SimpleNamespace(architectures=["DeepseekV41ForCausalLM"]),
-        )
-    )
-    monkeypatch.setattr(linear, "eligible_tensor", lambda *_: True)
-    linear.retain_small_m_weights(layer, config)
-    layer.weight = torch.zeros_like(layer.weight)
-    torch.testing.assert_close(layer._h20_weight.float(), original)
-    assert "_h20_weight" not in layer.state_dict()
-    assert linear.try_small_m_linear(layer, torch.ones(17, 64).bfloat16(), None) is None

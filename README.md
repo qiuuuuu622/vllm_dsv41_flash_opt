@@ -5,24 +5,28 @@
 目标是单机 **8×H20 96GB、TP8 + EP、DP1 / PCP1 / DCP1**。
 EP 使用 `--enable-expert-parallel`，在该拓扑下专家组为 8。
 
-本仓库已接入四项**默认关闭的实验实现**，提供不需要完整权重的测试与指标脚本。
+本仓库已接入三项**默认关闭的实验实现**，提供不需要完整权重的测试与指标脚本。
 已执行 macOS CPU 数值测试、逻辑通信模拟和通信成本模型；
 **尚未执行 CUDA 编译、真实 H20/NVLink 测试、完整模型精度评测或端到端吞吐测试。**
 不能据此宣称 H20 加速倍数、生产可用性或与原模型逐位等价。
 
+原小 M MXFP8 GEMM 实验已移除：新增激活量化产生约 2.7% 的合成 GEMM 误差，且没有实测加速证据。
+Marlin/Humming 已恢复 v0.32.0 原实现，不再保留额外权重副本；旧代码与结果保留在
+[历史提交](https://github.com/qiuuuuu622/vllm_dsv41_flash_opt/commit/226b3c400da420a4ce9aac07a0961ae22faa0d01)。
+旧配置若仍在 `VLLM_DSV41_H20_OPT` 中包含 `small_m_gemm`，会报未知特性，需删除该名字。
+
 原项目介绍见 [README.upstream.md](README.upstream.md)，实施方案见
 [docs/dsv41_h20_plan.md](docs/dsv41_h20_plan.md)。
 
-## 四项改动
+## 三项改动
 
 | 开关 | 原路径 | 新路径 | 主要边界 |
 | --- | --- | --- | --- |
 | `compact_indexer` | 全上下文打分，再过滤候选块 | 从 MXFP4 cache 直接读取候选位置并紧凑打分 | consumer 层；prefill / uniform decode / uniform verify；PCP1/DCP1 |
-| `small_m_gemm` | Marlin/Humming 通用 MXFP8 linear | 小 M、group-32 FP8 激活、split-K、FP32 顺序累加 | BF16 输入；1≤M≤16；额外量化误差与权重副本 |
 | `compressor_shard` | 每个 TP rank 投影完整 hidden 行 | 每卡投影约 1/8 行，再 all-gather FP32 输出 | TP8、DP1/PP1/PCP1/DCP1；默认 M≥2048 |
 | `head_exchange` | 每卡 8 个有效 head 填充到 64 | Q all-to-all 改成每卡约 1/8 行、64 个有效 head；输出逆交换 | FlashMLA decode；全局 64 heads；默认 M≥128 |
 
-四项可独立启停，未满足已知形状/硬件/拓扑条件时走原路径。
+三项可独立启停，未满足已知形状/硬件/拓扑条件时走原路径。
 通信进入后发生的异常直接报错，不在部分 rank 已通信后偷偷回退。
 目前要求 `--enforce-eager`，避免未经验证的编译和 CUDA graph 集成。
 
@@ -54,36 +58,7 @@ uniform verify 支持每行独立可见长度；ragged/padded decode 走原路�
 候选容量×行数超过预算也回退。预算限制的是元素数，**不是总工作区字节数**：
 positions、scores、排序索引与临时数组都会占内存。
 
-### 2. 小 M MXFP8 GEMM
-
-上游 [Marlin](vllm/model_executor/kernels/linear/mxfp8/marlin.py) 是 W8A16，保持 BF16 激活；
-[Humming](vllm/model_executor/kernels/linear/mxfp8/humming.py) 按自身配置处理激活。
-二者都会重排权重，不能把重排后的存储直接当作普通 `[N,K]` 矩阵传给新 kernel。
-
-[linear.py](vllm_dsv41_h20/linear.py) 在重排前保存逻辑 FP8 权重及 group-32 scale。
-只处理 V4.1 `.attn.` 下普通二维 MXFP8 linear，排除 `wo_a` BMM、MoE、其他模型、
-预量化 `QuantizedActivation` 输入及不支持的形状。M 超过阈值继续调用原 backend。
-
-新 kernel 分三步：
-
-1. 每行每 32 个 BF16 输入求 scale：`2^ceil(log2(max(amax,1e-4)/448))`，转 E4M3。
-2. 沿 K 的 group-32 边界分片，FP8 tensor-core GEMM 生成各 split 的 FP32 部分和。
-3. 按固定 split 顺序求和、加 bias，输出 BF16。
-
-增加独立 CTA 数量，试图改善小 M 下并行度不足；同时增加量化、临时缓冲和规约成本。
-当前 tile 为 M16/N64，split 数可配，没有完成 H20 参数搜索，不保证比 Marlin/Humming 快。
-
-**这项含精度权衡。** 相比 Marlin 的 W8A16，增加 FP8 激活量化。
-CPU 合成样本的归一化 RMSE 为 **2.67%–2.72%**；
-这不是完整模型准确率下降百分比，也不是已证明可接受的误差。
-仅改变 split 求和顺序的归一化 RMSE 约 `7.5e-8–1.1e-7`，不能混淆。
-部署前须与原 backend 对照完整模型质量。
-
-每个启用层的权重副本约增加 `N*K + N*K/32` 字节，
-另有运行时 split 缓冲 `4*S*M*N` 字节等；96GB 显存预算必须重新测量。
-默认关闭时不保存副本。
-
-### 3. compressor 按行投影再汇聚
+### 2. compressor 按行投影再汇聚
 
 [attention.py](vllm/models/deepseek_v41/attention.py) 原先每个 rank 都执行：
 
@@ -111,7 +86,7 @@ all-gather(Y_0, …, Y_7) → 完整 Y；去掉尾部 padding
 **所以不是“通信减少 8 倍”，也不是“打开 CP8”。**
 这里未实现 copy engine/NVLink 对称内存，使用 vLLM 的 TP group all-gather。
 
-### 4. decode attention 的 head↔row 交换
+### 3. decode attention 的 head↔row 交换
 
 上游 [FlashMLA decode](vllm/models/deepseek_v41/nvidia/flashmla.py) 要求 64/128 个 Q heads。
 全局 64 heads、TP8 时，每卡只负责 8 heads，却把 Q pad 成 `[M,64,512]`。
@@ -158,13 +133,12 @@ vllm serve /path/to/DeepSeek-V4.1-Flash \
   --enforce-eager
 ```
 
-逐项 A/B，再测组合；包含小 M 量化实验的组合写法：
+逐项 A/B，再测三项组合：
 
 ```bash
-export VLLM_DSV41_H20_OPT=compact_indexer,small_m_gemm,compressor_shard,head_exchange
+export VLLM_DSV41_H20_OPT=compact_indexer,compressor_shard,head_exchange
 ```
 
-小 M hook 接在 Marlin/Humming；其他 linear backend 继续原实现。
 head exchange 接在 FlashMLA，其他 attention backend 不会进入本项。
 每个进程首次真正进入路径时记录：`Experimental DSv4.1 H20 path active: <name>`。
 仅设置环境变量而没有该日志，不应视为已启用某条运行路径。
@@ -172,8 +146,6 @@ head exchange 接在 FlashMLA，其他 attention backend 不会进入本项。
 | 环境变量 | 默认值 | 含义 |
 | --- | --- | --- |
 | `VLLM_DSV41_H20_OPT` | 空 | 逗号分隔特性名；未知名报错 |
-| `VLLM_DSV41_H20_SMALL_M_MAX` | 16 | 允许 1–16 |
-| `VLLM_DSV41_H20_SPLIT_K` | 4 | 允许 1/2/4/8 |
 | `VLLM_DSV41_H20_COMPRESSOR_MIN_ROWS` | 2048 | 投影分工最少总行数 |
 | `VLLM_DSV41_H20_HEAD_MIN_ROWS` | 128 | decode 重排最少总行数 |
 | `VLLM_DSV41_H20_INDEXER_MAX_SCORES` | 16777216 | compact score 元素上限；总显存更大 |
@@ -187,7 +159,7 @@ head exchange 接在 FlashMLA，其他 attention backend 不会进入本项。
 环境：macOS ARM64、Python 3.12.13、PyTorch **2.13.0**（与上游 CUDA requirements 一致）、
 单 CPU 线程、随机种子 20261031。使用合成数据，没有完整模型权重。
 
-**37 passed，11 skipped**。11 项跳过需要 CUDA，包括多请求/物理页映射打分与小 M GEMM。
+**24 passed，2 skipped**。2 项跳过需要 CUDA，分别验证连续和分页 cache 的多请求 indexer 打分。
 原始报告：[CPU 指标](results/h20_cpu.json)、[JUnit](results/h20_tests.xml)、
 [通信模型](results/h20_communication_model.json)。
 
@@ -200,8 +172,6 @@ head exchange 接在 FlashMLA，其他 attention backend 不会进入本项。
 | 检查 | 结果 | 可以说明什么 |
 | --- | --- | --- |
 | indexer：R8/H32/D128/L8192，候选容量512 | top-k 完全匹配；该样本 score 最大误差0 | CPU 参考数学与掩码一致；打分元素容量65536→4096，16×缩小 |
-| GEMM：M=1/4/16，N1280/K5120，split4 对 split1 | 最大绝对误差3.05e-5 / 4.58e-5 / 7.63e-5 | CPU 求和顺序误差很小 |
-| 同组 GEMM，FP8 激活对未量化激活 | 归一化 RMSE 2.723% / 2.671% / 2.669% | 新增激活量化改变数值，须模型评测 |
 | compressor：M2049/N128/K256，8个逻辑 rank | 最大误差0 | 不整除行数和拼接顺序正确 |
 | head 交换：M129/H64/D64 | 往返最大误差0 | padding、rank/head 顺序正确 |
 | 带不同 sink、每行不同稀疏索引的 attention | FP64 参考在1e-12容差内一致 | 交换前后 attention 数学一致 |
@@ -264,7 +234,7 @@ CUDA 分支保持 `torch.mm(..., out_dtype=torch.float32)`。二者共享切片�
 
 单张 H20：在 Linux CUDA 环境按上游步骤安装本 fork 及匹配 PyTorch/Triton，
 kernel 遵循仓库规范经 `vllm.triton_utils` 导入 Triton；运行上面的 pytest 命令，
-11 个 CUDA 用例将实际执行。继续测合成 kernel 延迟：
+2 个 CUDA 用例将实际执行。继续测合成 kernel 延迟：
 
 ```bash
 PYTHONPATH=. .venv/bin/python benchmarks/kernels/dsv41_h20.py \
@@ -272,7 +242,7 @@ PYTHONPATH=. .venv/bin/python benchmarks/kernels/dsv41_h20.py \
 ```
 
 脚本输出新 kernel 正确性与延迟；没有将 PyTorch dense GEMM 冒充原 vLLM 性能基线。
-真实加速比仍需对照同输入的原 DeepGEMM indexer、Marlin/Humming 和 FlashMLA。
+真实加速比仍需对照同输入的原 DeepGEMM indexer、compressor 投影和 FlashMLA。
 
 有2张或8张 GPU 后，运行真实 NCCL 投影汇聚、head 交换及逆交换：
 
@@ -291,7 +261,6 @@ PYTHONPATH=. .venv/bin/python -m torch.distributed.run \
 
 参考 [antgroup/sglang](https://github.com/antgroup/sglang) 的
 [indexer](https://github.com/antgroup/sglang/commit/7a37d35)、
-[FP8 GEMM](https://github.com/antgroup/sglang/commit/6b2854a)、
 [CP](https://github.com/antgroup/sglang/commit/778bacd)、
 [decode/mix TP](https://github.com/antgroup/sglang/commit/380e2d5) 优化方向。
 本仓库是为 vLLM PCP1 适配的独立实验实现，不是该分支全部优化的等价移植。

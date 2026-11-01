@@ -60,29 +60,3 @@ def compact_topk(scores, positions, k: int):
     out = torch.full((scores.shape[0], k), -1, dtype=torch.int32, device=scores.device)
     out[:, :take] = result.to(torch.int32)
     return out
-
-
-def quantize_group32_reference(x):
-    if x.shape[-1] % 32:
-        raise ValueError("K must be divisible by 32")
-    groups = x.float().reshape(*x.shape[:-1], -1, 32)
-    maximum = groups.abs().amax(dim=-1).clamp_min(1e-4)
-    scales = torch.exp2(torch.ceil(torch.log2(maximum / 448.0)))
-    values = (groups / scales[..., None]).clamp(-448, 448)
-    return values.reshape(x.shape).to(torch.float8_e4m3fn), scales
-
-
-def block32_gemm_reference(a, a_scale, w, w_scale, split_k=1):
-    """Fixed-order split accumulation; weights use per-row group-32 scales."""
-    if split_k < 1 or a.shape[1] != w.shape[1] or a.shape[1] % 32:
-        raise ValueError("invalid split-K GEMM dimensions")
-    ad = a.float() * a_scale.float().repeat_interleave(32, -1)
-    wd = w.float() * w_scale.float().repeat_interleave(32, -1)
-    groups = a.shape[1] // 32
-    span = (groups + split_k - 1) // split_k
-    out = torch.zeros((a.shape[0], w.shape[0]), device=a.device)
-    for part in range(split_k):
-        lo, hi = part * span * 32, min((part + 1) * span * 32, a.shape[1])
-        if lo < hi:
-            out += ad[:, lo:hi] @ wd[:, lo:hi].T
-    return out
