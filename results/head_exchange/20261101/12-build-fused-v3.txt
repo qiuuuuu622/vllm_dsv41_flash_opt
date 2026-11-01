@@ -1,0 +1,2 @@
+14886c4a99819c8ac38d3ddfde234c6f13841b1d02000413e7b2576f4f3964e0  scripts/fused/segment_exchange.cu
+a4b8f710400002b602ca5a77b117c4270ae3be8c17ee9e8f6f11f002dcfda47f  scripts/fused/libsegment_exchange.so

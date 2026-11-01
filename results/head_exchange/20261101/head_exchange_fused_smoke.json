@@ -1,0 +1,1508 @@
+{
+  "status": "completed",
+  "transport_variant": "symmetric_peer_push",
+  "baseline_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+  "flashmla_commit": "0eee43b12f034b657133cf2afca6a72ebb6efccf",
+  "started_utc": "2026-11-01T03:35:39Z",
+  "torch": "2.13.0+cu130",
+  "extension": "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/vllm/_flashmla_C.abi3.so",
+  "physical_ranks": 2,
+  "input_heads_per_rank": 8,
+  "exchanged_heads_per_rank": 16,
+  "scope": "Function experiment, no production hook changes. Persistent workspace; immutable sink gathering occurs once at setup. Per-case sparse row metadata is prepared outside timing; full rows use views. Steady-state planner reused on both paths. Exchanged-total includes both transport directions, all packing or fused-layout writes, FlashMLA and output restoration. Transport is selected by transport_variant. No model accuracy or TP8 performance claim.",
+  "measurement": {
+    "repeat": 3,
+    "inner": 1,
+    "warmup_calls": 100
+  },
+  "cases": [
+    {
+      "rows": 1,
+      "compress_ratio": 0,
+      "ranks": [
+        {
+          "rank": 0,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 1,
+          "exchange_threads": 256,
+          "rows": 1,
+          "compress_ratio": 0,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 1,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 71.84000313282013,
+                "p95_us": 84.48319882154465,
+                "min_us": 64.67200070619583,
+                "samples_us": [
+                  85.88799834251404,
+                  71.84000313282013,
+                  64.67200070619583
+                ]
+              },
+              "graph": {
+                "p50_us": 18.079999834299088,
+                "p95_us": 18.339200131595135,
+                "min_us": 16.416000202298164,
+                "samples_us": [
+                  18.36800016462803,
+                  18.079999834299088,
+                  16.416000202298164
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 89.37600255012512,
+                "p95_us": 100.34879893064499,
+                "min_us": 87.20000088214874,
+                "samples_us": [
+                  101.56799852848053,
+                  89.37600255012512,
+                  87.20000088214874
+                ]
+              },
+              "graph": {
+                "p50_us": 35.45600175857544,
+                "p95_us": 36.23360097408295,
+                "min_us": 35.32800078392029,
+                "samples_us": [
+                  36.320000886917114,
+                  35.32800078392029,
+                  35.45600175857544
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 61.664000153541565,
+                "p95_us": 67.07840114831924,
+                "min_us": 60.22400036454201,
+                "samples_us": [
+                  67.6800012588501,
+                  61.664000153541565,
+                  60.22400036454201
+                ]
+              },
+              "graph": {
+                "p50_us": 17.216000705957413,
+                "p95_us": 17.8208002820611,
+                "min_us": 16.383999958634377,
+                "samples_us": [
+                  17.88800023496151,
+                  17.216000705957413,
+                  16.383999958634377
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 35.93600168824196,
+                "p95_us": 38.90240080654621,
+                "min_us": 35.45600175857544,
+                "samples_us": [
+                  39.23200070858002,
+                  35.93600168824196,
+                  35.45600175857544
+                ]
+              },
+              "graph": {
+                "p50_us": 26.1439997702837,
+                "p95_us": 28.93759924918413,
+                "min_us": 24.768000468611717,
+                "samples_us": [
+                  26.1439997702837,
+                  24.768000468611717,
+                  29.24799919128418
+                ]
+              }
+            }
+          }
+        },
+        {
+          "rank": 1,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 1,
+          "exchange_threads": 256,
+          "rows": 1,
+          "compress_ratio": 0,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 1,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 65.72800129652023,
+                "p95_us": 94.9600026011467,
+                "min_us": 60.575999319553375,
+                "samples_us": [
+                  98.2080027461052,
+                  65.72800129652023,
+                  60.575999319553375
+                ]
+              },
+              "graph": {
+                "p50_us": 17.696000635623932,
+                "p95_us": 17.89760049432516,
+                "min_us": 16.1920003592968,
+                "samples_us": [
+                  17.920000478625298,
+                  17.696000635623932,
+                  16.1920003592968
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 92.70399808883667,
+                "p95_us": 103.56160029768944,
+                "min_us": 89.9519994854927,
+                "samples_us": [
+                  104.76800054311752,
+                  92.70399808883667,
+                  89.9519994854927
+                ]
+              },
+              "graph": {
+                "p50_us": 38.784001022577286,
+                "p95_us": 39.01439942419529,
+                "min_us": 38.7520007789135,
+                "samples_us": [
+                  38.784001022577286,
+                  39.03999924659729,
+                  38.7520007789135
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 58.78400057554245,
+                "p95_us": 64.65919837355614,
+                "min_us": 57.792000472545624,
+                "samples_us": [
+                  65.31199812889099,
+                  58.78400057554245,
+                  57.792000472545624
+                ]
+              },
+              "graph": {
+                "p50_us": 17.08799973130226,
+                "p95_us": 17.3183998093009,
+                "min_us": 16.383999958634377,
+                "samples_us": [
+                  17.343999817967415,
+                  17.08799973130226,
+                  16.383999958634377
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 40.192000567913055,
+                "p95_us": 40.65280072391033,
+                "min_us": 39.61599990725517,
+                "samples_us": [
+                  40.70400074124336,
+                  40.192000567913055,
+                  39.61599990725517
+                ]
+              },
+              "graph": {
+                "p50_us": 27.648000046610832,
+                "p95_us": 29.001600295305252,
+                "min_us": 25.34399926662445,
+                "samples_us": [
+                  29.152000322937965,
+                  27.648000046610832,
+                  25.34399926662445
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rows": 9,
+      "compress_ratio": 0,
+      "ranks": [
+        {
+          "rank": 0,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 3,
+          "exchange_threads": 256,
+          "rows": 9,
+          "compress_ratio": 0,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 5,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.003965616226196289,
+            "normalized_rmse_vs_dequantized_fp32": 0.0020400334615260363,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.003965616226196289,
+            "normalized_rmse_vs_dequantized_fp32": 0.0020400334615260363,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 63.1679967045784,
+                "p95_us": 70.28159722685814,
+                "min_us": 62.272001057863235,
+                "samples_us": [
+                  71.07199728488922,
+                  63.1679967045784,
+                  62.272001057863235
+                ]
+              },
+              "graph": {
+                "p50_us": 21.376000717282295,
+                "p95_us": 21.663999557495117,
+                "min_us": 21.344000473618507,
+                "samples_us": [
+                  21.376000717282295,
+                  21.344000473618507,
+                  21.695999428629875
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 94.94400024414062,
+                "p95_us": 98.9471971988678,
+                "min_us": 91.26400202512741,
+                "samples_us": [
+                  99.39199686050415,
+                  94.94400024414062,
+                  91.26400202512741
+                ]
+              },
+              "graph": {
+                "p50_us": 43.616000562906265,
+                "p95_us": 43.76000165939331,
+                "min_us": 43.23200136423111,
+                "samples_us": [
+                  43.776001781225204,
+                  43.616000562906265,
+                  43.23200136423111
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 61.055999249219894,
+                "p95_us": 68.19839663803577,
+                "min_us": 58.94400179386139,
+                "samples_us": [
+                  68.9919963479042,
+                  61.055999249219894,
+                  58.94400179386139
+                ]
+              },
+              "graph": {
+                "p50_us": 18.52799952030182,
+                "p95_us": 20.428800582885742,
+                "min_us": 18.432000651955605,
+                "samples_us": [
+                  18.52799952030182,
+                  18.432000651955605,
+                  20.640000700950623
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 39.64800015091896,
+                "p95_us": 41.34719967842102,
+                "min_us": 37.856001406908035,
+                "samples_us": [
+                  41.53599962592125,
+                  39.64800015091896,
+                  37.856001406908035
+                ]
+              },
+              "graph": {
+                "p50_us": 30.01599945127964,
+                "p95_us": 30.131200328469276,
+                "min_us": 29.952000826597214,
+                "samples_us": [
+                  30.14400042593479,
+                  30.01599945127964,
+                  29.952000826597214
+                ]
+              }
+            }
+          }
+        },
+        {
+          "rank": 1,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 3,
+          "exchange_threads": 256,
+          "rows": 9,
+          "compress_ratio": 0,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 5,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.004060626029968262,
+            "normalized_rmse_vs_dequantized_fp32": 0.002024684567004442,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.004060626029968262,
+            "normalized_rmse_vs_dequantized_fp32": 0.002024684567004442,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 64.06400352716446,
+                "p95_us": 70.34239768981934,
+                "min_us": 60.99199876189232,
+                "samples_us": [
+                  71.03999704122543,
+                  60.99199876189232,
+                  64.06400352716446
+                ]
+              },
+              "graph": {
+                "p50_us": 21.568000316619873,
+                "p95_us": 21.654399298131466,
+                "min_us": 20.479999482631683,
+                "samples_us": [
+                  21.663999184966087,
+                  20.479999482631683,
+                  21.568000316619873
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 90.7839983701706,
+                "p95_us": 100.66239982843399,
+                "min_us": 89.82399851083755,
+                "samples_us": [
+                  101.75999999046326,
+                  90.7839983701706,
+                  89.82399851083755
+                ]
+              },
+              "graph": {
+                "p50_us": 47.07200080156326,
+                "p95_us": 48.80000054836273,
+                "min_us": 45.343998819589615,
+                "samples_us": [
+                  45.343998819589615,
+                  48.99200052022934,
+                  47.07200080156326
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 58.88000130653381,
+                "p95_us": 65.59039875864983,
+                "min_us": 58.20799991488457,
+                "samples_us": [
+                  66.3359984755516,
+                  58.88000130653381,
+                  58.20799991488457
+                ]
+              },
+              "graph": {
+                "p50_us": 20.959999412298203,
+                "p95_us": 22.054399363696575,
+                "min_us": 20.896000787615776,
+                "samples_us": [
+                  22.175999358296394,
+                  20.959999412298203,
+                  20.896000787615776
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 42.55999997258186,
+                "p95_us": 42.96319968998432,
+                "min_us": 40.95999896526337,
+                "samples_us": [
+                  43.007999658584595,
+                  42.55999997258186,
+                  40.95999896526337
+                ]
+              },
+              "graph": {
+                "p50_us": 36.41600161790848,
+                "p95_us": 36.58879958093166,
+                "min_us": 32.86400064826012,
+                "samples_us": [
+                  32.86400064826012,
+                  36.607999354600906,
+                  36.41600161790848
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rows": 1,
+      "compress_ratio": 1,
+      "ranks": [
+        {
+          "rank": 0,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 1,
+          "exchange_threads": 256,
+          "rows": 1,
+          "compress_ratio": 1,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 1,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 66.14399701356888,
+                "p95_us": 76.3968013226986,
+                "min_us": 62.49599903821945,
+                "samples_us": [
+                  77.53600180149078,
+                  66.14399701356888,
+                  62.49599903821945
+                ]
+              },
+              "graph": {
+                "p50_us": 18.079999834299088,
+                "p95_us": 18.85760072618723,
+                "min_us": 17.08799973130226,
+                "samples_us": [
+                  18.94400082528591,
+                  18.079999834299088,
+                  17.08799973130226
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 92.86399930715561,
+                "p95_us": 105.01759797334671,
+                "min_us": 89.72799777984619,
+                "samples_us": [
+                  106.36799782514572,
+                  92.86399930715561,
+                  89.72799777984619
+                ]
+              },
+              "graph": {
+                "p50_us": 36.031998693943024,
+                "p95_us": 36.34880110621452,
+                "min_us": 35.77600046992302,
+                "samples_us": [
+                  36.38400137424469,
+                  36.031998693943024,
+                  35.77600046992302
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 65.24799764156342,
+                "p95_us": 70.374396443367,
+                "min_us": 62.52799928188324,
+                "samples_us": [
+                  70.94399631023407,
+                  65.24799764156342,
+                  62.52799928188324
+                ]
+              },
+              "graph": {
+                "p50_us": 16.863999888300896,
+                "p95_us": 18.044800497591496,
+                "min_us": 16.767999157309532,
+                "samples_us": [
+                  18.17600056529045,
+                  16.767999157309532,
+                  16.863999888300896
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 37.63199970126152,
+                "p95_us": 38.841598853468895,
+                "min_us": 35.551998764276505,
+                "samples_us": [
+                  38.975998759269714,
+                  35.551998764276505,
+                  37.63199970126152
+                ]
+              },
+              "graph": {
+                "p50_us": 25.79200081527233,
+                "p95_us": 26.13760009407997,
+                "min_us": 25.631999596953392,
+                "samples_us": [
+                  26.176000013947487,
+                  25.79200081527233,
+                  25.631999596953392
+                ]
+              }
+            }
+          }
+        },
+        {
+          "rank": 1,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 1,
+          "exchange_threads": 256,
+          "rows": 1,
+          "compress_ratio": 1,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 1,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 72.28799909353256,
+                "p95_us": 75.39840266108513,
+                "min_us": 67.58400052785873,
+                "samples_us": [
+                  75.74400305747986,
+                  72.28799909353256,
+                  67.58400052785873
+                ]
+              },
+              "graph": {
+                "p50_us": 17.40800030529499,
+                "p95_us": 18.444799818098545,
+                "min_us": 16.992000862956047,
+                "samples_us": [
+                  18.559999763965607,
+                  17.40800030529499,
+                  16.992000862956047
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 92.57599711418152,
+                "p95_us": 103.00160273909569,
+                "min_us": 90.43200314044952,
+                "samples_us": [
+                  104.16000336408615,
+                  92.57599711418152,
+                  90.43200314044952
+                ]
+              },
+              "graph": {
+                "p50_us": 37.087999284267426,
+                "p95_us": 37.750400975346565,
+                "min_us": 36.320000886917114,
+                "samples_us": [
+                  37.087999284267426,
+                  37.82400116324425,
+                  36.320000886917114
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 63.26399743556976,
+                "p95_us": 68.59199777245522,
+                "min_us": 62.39999830722809,
+                "samples_us": [
+                  69.18399780988693,
+                  63.26399743556976,
+                  62.39999830722809
+                ]
+              },
+              "graph": {
+                "p50_us": 17.24799908697605,
+                "p95_us": 18.169599398970604,
+                "min_us": 16.64000004529953,
+                "samples_us": [
+                  18.271999433636665,
+                  16.64000004529953,
+                  17.24799908697605
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 36.479998379945755,
+                "p95_us": 39.76319991052151,
+                "min_us": 36.41600161790848,
+                "samples_us": [
+                  40.12800008058548,
+                  36.479998379945755,
+                  36.41600161790848
+                ]
+              },
+              "graph": {
+                "p50_us": 26.528000831604004,
+                "p95_us": 26.672000251710415,
+                "min_us": 25.98400041460991,
+                "samples_us": [
+                  26.688000187277794,
+                  25.98400041460991,
+                  26.528000831604004
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rows": 9,
+      "compress_ratio": 1,
+      "ranks": [
+        {
+          "rank": 0,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 3,
+          "exchange_threads": 256,
+          "rows": 9,
+          "compress_ratio": 1,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 5,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.001970648765563965,
+            "normalized_rmse_vs_dequantized_fp32": 0.0020298424642533064,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.001970648765563965,
+            "normalized_rmse_vs_dequantized_fp32": 0.001995253376662731,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.001953125,
+            "nrmse": 0.0013669092440977693,
+            "bitwise_equal": false
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 62.97600269317627,
+                "p95_us": 68.73599961400032,
+                "min_us": 61.40799820423126,
+                "samples_us": [
+                  69.37599927186966,
+                  62.97600269317627,
+                  61.40799820423126
+                ]
+              },
+              "graph": {
+                "p50_us": 28.351999819278717,
+                "p95_us": 28.783999755978584,
+                "min_us": 27.488000690937042,
+                "samples_us": [
+                  28.831999748945236,
+                  28.351999819278717,
+                  27.488000690937042
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 100.03200173377991,
+                "p95_us": 123.73440116643906,
+                "min_us": 96.57599776983261,
+                "samples_us": [
+                  100.03200173377991,
+                  96.57599776983261,
+                  126.36800110340118
+                ]
+              },
+              "graph": {
+                "p50_us": 47.29599878191948,
+                "p95_us": 48.6495990306139,
+                "min_us": 45.1200008392334,
+                "samples_us": [
+                  47.29599878191948,
+                  48.79999905824661,
+                  45.1200008392334
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 62.84800171852112,
+                "p95_us": 71.2863989174366,
+                "min_us": 61.72800064086914,
+                "samples_us": [
+                  72.22399860620499,
+                  62.84800171852112,
+                  61.72800064086914
+                ]
+              },
+              "graph": {
+                "p50_us": 22.336000576615334,
+                "p95_us": 23.200000450015068,
+                "min_us": 21.695999428629875,
+                "samples_us": [
+                  23.296000435948372,
+                  22.336000576615334,
+                  21.695999428629875
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 39.16800022125244,
+                "p95_us": 41.96160137653351,
+                "min_us": 38.015998899936676,
+                "samples_us": [
+                  42.27200150489807,
+                  39.16800022125244,
+                  38.015998899936676
+                ]
+              },
+              "graph": {
+                "p50_us": 28.60799990594387,
+                "p95_us": 31.027199886739254,
+                "min_us": 28.224000707268715,
+                "samples_us": [
+                  31.295999884605408,
+                  28.60799990594387,
+                  28.224000707268715
+                ]
+              }
+            }
+          }
+        },
+        {
+          "rank": 1,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 3,
+          "exchange_threads": 256,
+          "rows": 9,
+          "compress_ratio": 1,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 5,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.001887679100036621,
+            "normalized_rmse_vs_dequantized_fp32": 0.002077945973724127,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.001887679100036621,
+            "normalized_rmse_vs_dequantized_fp32": 0.002052449155598879,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.001953125,
+            "nrmse": 0.0013725636526942253,
+            "bitwise_equal": false
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 61.08799949288368,
+                "p95_us": 67.94240139424801,
+                "min_us": 60.095999389886856,
+                "samples_us": [
+                  68.70400160551071,
+                  61.08799949288368,
+                  60.095999389886856
+                ]
+              },
+              "graph": {
+                "p50_us": 27.68000029027462,
+                "p95_us": 29.06240075826645,
+                "min_us": 27.615999802947044,
+                "samples_us": [
+                  29.21600081026554,
+                  27.68000029027462,
+                  27.615999802947044
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 104.80000078678131,
+                "p95_us": 134.80960130691528,
+                "min_us": 103.00800204277039,
+                "samples_us": [
+                  103.00800204277039,
+                  104.80000078678131,
+                  138.14400136470795
+                ]
+              },
+              "graph": {
+                "p50_us": 47.13600128889084,
+                "p95_us": 49.583999812603,
+                "min_us": 46.84799909591675,
+                "samples_us": [
+                  49.855999648571014,
+                  47.13600128889084,
+                  46.84799909591675
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 62.72000074386597,
+                "p95_us": 68.16320195794106,
+                "min_us": 60.03199890255928,
+                "samples_us": [
+                  68.76800209283829,
+                  62.72000074386597,
+                  60.03199890255928
+                ]
+              },
+              "graph": {
+                "p50_us": 23.104000836610794,
+                "p95_us": 23.996799252927303,
+                "min_us": 23.072000592947006,
+                "samples_us": [
+                  24.09599907696247,
+                  23.072000592947006,
+                  23.104000836610794
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 41.760001331567764,
+                "p95_us": 44.52479891479015,
+                "min_us": 40.76800122857094,
+                "samples_us": [
+                  44.83199864625931,
+                  41.760001331567764,
+                  40.76800122857094
+                ]
+              },
+              "graph": {
+                "p50_us": 32.48000144958496,
+                "p95_us": 34.52480025589466,
+                "min_us": 29.85600009560585,
+                "samples_us": [
+                  29.85600009560585,
+                  32.48000144958496,
+                  34.752000123262405
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rows": 1,
+      "compress_ratio": 2,
+      "ranks": [
+        {
+          "rank": 0,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 1,
+          "exchange_threads": 256,
+          "rows": 1,
+          "compress_ratio": 2,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 1,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 63.231997191905975,
+                "p95_us": 67.78239831328392,
+                "min_us": 63.00800293684006,
+                "samples_us": [
+                  68.28799843788147,
+                  63.00800293684006,
+                  63.231997191905975
+                ]
+              },
+              "graph": {
+                "p50_us": 17.40800030529499,
+                "p95_us": 18.128000758588314,
+                "min_us": 16.51199907064438,
+                "samples_us": [
+                  18.20800080895424,
+                  17.40800030529499,
+                  16.51199907064438
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 92.16000139713287,
+                "p95_us": 96.79680317640305,
+                "min_us": 90.7519981265068,
+                "samples_us": [
+                  97.31200337409973,
+                  92.16000139713287,
+                  90.7519981265068
+                ]
+              },
+              "graph": {
+                "p50_us": 37.151999771595,
+                "p95_us": 39.715199172496796,
+                "min_us": 35.679999738931656,
+                "samples_us": [
+                  37.151999771595,
+                  39.99999910593033,
+                  35.679999738931656
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 62.68800050020218,
+                "p95_us": 66.48960262537003,
+                "min_us": 61.055999249219894,
+                "samples_us": [
+                  66.91200286149979,
+                  62.68800050020218,
+                  61.055999249219894
+                ]
+              },
+              "graph": {
+                "p50_us": 16.896000131964684,
+                "p95_us": 18.364799581468105,
+                "min_us": 16.767999157309532,
+                "samples_us": [
+                  18.52799952030182,
+                  16.896000131964684,
+                  16.767999157309532
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 35.45600175857544,
+                "p95_us": 39.91999886929989,
+                "min_us": 34.52799841761589,
+                "samples_us": [
+                  40.41599854826927,
+                  35.45600175857544,
+                  34.52799841761589
+                ]
+              },
+              "graph": {
+                "p50_us": 25.855999439954758,
+                "p95_us": 29.571199230849743,
+                "min_us": 25.37599951028824,
+                "samples_us": [
+                  29.983999207615852,
+                  25.37599951028824,
+                  25.855999439954758
+                ]
+              }
+            }
+          }
+        },
+        {
+          "rank": 1,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 1,
+          "exchange_threads": 256,
+          "rows": 1,
+          "compress_ratio": 2,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 1,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0,
+            "normalized_rmse_vs_dequantized_fp32": 0.0,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.0,
+            "nrmse": 0.0,
+            "bitwise_equal": true
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 62.463998794555664,
+                "p95_us": 69.83680129051208,
+                "min_us": 62.33600154519081,
+                "samples_us": [
+                  70.65600156784058,
+                  62.463998794555664,
+                  62.33600154519081
+                ]
+              },
+              "graph": {
+                "p50_us": 16.992000862956047,
+                "p95_us": 18.316800892353058,
+                "min_us": 16.896000131964684,
+                "samples_us": [
+                  18.464000895619392,
+                  16.992000862956047,
+                  16.896000131964684
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 99.48799759149551,
+                "p95_us": 100.63999965786934,
+                "min_us": 93.08800101280212,
+                "samples_us": [
+                  100.76799988746643,
+                  99.48799759149551,
+                  93.08800101280212
+                ]
+              },
+              "graph": {
+                "p50_us": 37.34400123357773,
+                "p95_us": 39.849600195884705,
+                "min_us": 37.21600025892258,
+                "samples_us": [
+                  40.12800008058548,
+                  37.21600025892258,
+                  37.34400123357773
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 63.64800035953522,
+                "p95_us": 66.78719744086266,
+                "min_us": 61.184000223875046,
+                "samples_us": [
+                  67.1359971165657,
+                  63.64800035953522,
+                  61.184000223875046
+                ]
+              },
+              "graph": {
+                "p50_us": 16.863999888300896,
+                "p95_us": 17.439999245107174,
+                "min_us": 16.736000776290894,
+                "samples_us": [
+                  17.503999173641205,
+                  16.863999888300896,
+                  16.736000776290894
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 36.06399893760681,
+                "p95_us": 41.996800526976585,
+                "min_us": 35.392001271247864,
+                "samples_us": [
+                  42.65600070357323,
+                  36.06399893760681,
+                  35.392001271247864
+                ]
+              },
+              "graph": {
+                "p50_us": 27.103999629616737,
+                "p95_us": 31.107201613485813,
+                "min_us": 26.367999613285065,
+                "samples_us": [
+                  26.367999613285065,
+                  27.103999629616737,
+                  31.55200183391571
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rows": 9,
+      "compress_ratio": 2,
+      "ranks": [
+        {
+          "rank": 0,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 3,
+          "exchange_threads": 256,
+          "rows": 9,
+          "compress_ratio": 2,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 5,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.00206601619720459,
+            "normalized_rmse_vs_dequantized_fp32": 0.002044385066255927,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.00206601619720459,
+            "normalized_rmse_vs_dequantized_fp32": 0.0020217651035636663,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.001953125,
+            "nrmse": 0.0013275670353323221,
+            "bitwise_equal": false
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 63.680000603199005,
+                "p95_us": 68.4895969927311,
+                "min_us": 63.19999694824219,
+                "samples_us": [
+                  69.023996591568,
+                  63.680000603199005,
+                  63.19999694824219
+                ]
+              },
+              "graph": {
+                "p50_us": 28.095999732613564,
+                "p95_us": 29.363199323415756,
+                "min_us": 27.583999559283257,
+                "samples_us": [
+                  29.503999277949333,
+                  28.095999732613564,
+                  27.583999559283257
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 97.95200079679489,
+                "p95_us": 100.77440217137337,
+                "min_us": 92.67199784517288,
+                "samples_us": [
+                  101.08800232410431,
+                  97.95200079679489,
+                  92.67199784517288
+                ]
+              },
+              "graph": {
+                "p50_us": 46.62400111556053,
+                "p95_us": 47.97760136425495,
+                "min_us": 45.632001012563705,
+                "samples_us": [
+                  46.62400111556053,
+                  48.128001391887665,
+                  45.632001012563705
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 68.15999746322632,
+                "p95_us": 68.70720162987709,
+                "min_us": 61.664000153541565,
+                "samples_us": [
+                  68.76800209283829,
+                  68.15999746322632,
+                  61.664000153541565
+                ]
+              },
+              "graph": {
+                "p50_us": 22.272000089287758,
+                "p95_us": 22.99200054258108,
+                "min_us": 21.824000403285027,
+                "samples_us": [
+                  23.072000592947006,
+                  22.272000089287758,
+                  21.824000403285027
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 40.383998304605484,
+                "p95_us": 41.968000307679176,
+                "min_us": 37.98399865627289,
+                "samples_us": [
+                  42.14400053024292,
+                  40.383998304605484,
+                  37.98399865627289
+                ]
+              },
+              "graph": {
+                "p50_us": 28.60799990594387,
+                "p95_us": 30.048000812530518,
+                "min_us": 28.60799990594387,
+                "samples_us": [
+                  30.208000913262367,
+                  28.60799990594387,
+                  28.60799990594387
+                ]
+              }
+            }
+          }
+        },
+        {
+          "rank": 1,
+          "workspace_class": "FusedExchangeWorkspace",
+          "exchange_blocks": 3,
+          "exchange_threads": 256,
+          "rows": 9,
+          "compress_ratio": 2,
+          "context": 1024,
+          "vary_lengths": true,
+          "local_input_heads": 8,
+          "row_shard_effective_heads": 16,
+          "padded_heads": 64,
+          "local_output_rows": 5,
+          "baseline_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0016956925392150879,
+            "normalized_rmse_vs_dequantized_fp32": 0.0020736013539135456,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_error": {
+            "max_abs_error_vs_dequantized_fp32": 0.0016956925392150879,
+            "normalized_rmse_vs_dequantized_fp32": 0.0020551581401377916,
+            "allclose_rtol": 0.02,
+            "allclose_atol": 0.002
+          },
+          "exchange_vs_baseline": {
+            "max_abs": 0.001953125,
+            "nrmse": 0.001697895466350019,
+            "bitwise_equal": false
+          },
+          "timings": {
+            "baseline": {
+              "eager": {
+                "p50_us": 61.88800185918808,
+                "p95_us": 70.55680081248283,
+                "min_us": 60.256000608205795,
+                "samples_us": [
+                  71.52000069618225,
+                  61.88800185918808,
+                  60.256000608205795
+                ]
+              },
+              "graph": {
+                "p50_us": 28.095999732613564,
+                "p95_us": 29.161599464714527,
+                "min_us": 27.83999964594841,
+                "samples_us": [
+                  29.279999434947968,
+                  27.83999964594841,
+                  28.095999732613564
+                ]
+              }
+            },
+            "exchanged_total": {
+              "eager": {
+                "p50_us": 103.32799702882767,
+                "p95_us": 106.61120191216469,
+                "min_us": 98.49599748849869,
+                "samples_us": [
+                  103.32799702882767,
+                  106.97600245475769,
+                  98.49599748849869
+                ]
+              },
+              "graph": {
+                "p50_us": 48.19199815392494,
+                "p95_us": 50.121599435806274,
+                "min_us": 46.36799916625023,
+                "samples_us": [
+                  48.19199815392494,
+                  46.36799916625023,
+                  50.335999578237534
+                ]
+              }
+            },
+            "row_attention_only": {
+              "eager": {
+                "p50_us": 67.19999760389328,
+                "p95_us": 68.40960010886192,
+                "min_us": 59.776000678539276,
+                "samples_us": [
+                  67.19999760389328,
+                  68.54400038719177,
+                  59.776000678539276
+                ]
+              },
+              "graph": {
+                "p50_us": 23.871999233961105,
+                "p95_us": 23.900799453258514,
+                "min_us": 23.423999547958374,
+                "samples_us": [
+                  23.871999233961105,
+                  23.423999547958374,
+                  23.903999477624893
+                ]
+              }
+            },
+            "exchange_and_packing_only": {
+              "eager": {
+                "p50_us": 44.256001710891724,
+                "p95_us": 46.15679942071438,
+                "min_us": 41.471999138593674,
+                "samples_us": [
+                  46.36799916625023,
+                  44.256001710891724,
+                  41.471999138593674
+                ]
+              },
+              "graph": {
+                "p50_us": 30.33600002527237,
+                "p95_us": 34.828800708055496,
+                "min_us": 29.664000496268272,
+                "samples_us": [
+                  30.33600002527237,
+                  29.664000496268272,
+                  35.32800078392029
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

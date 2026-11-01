@@ -1,0 +1,14 @@
+{"rows": 1, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 1, "mode": "graph", "iterations_per_rank": 200, "exact": true}
+{"rows": 7, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 7, "mode": "graph", "iterations_per_rank": 200, "exact": true}
+{"rows": 9, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 9, "mode": "graph", "iterations_per_rank": 200, "exact": true}
+{"rows": 32, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 32, "mode": "graph", "iterations_per_rank": 200, "exact": true}
+{"rows": 127, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 127, "mode": "graph", "iterations_per_rank": 200, "exact": true}
+{"rows": 129, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 129, "mode": "graph", "iterations_per_rank": 200, "exact": true}
+{"rows": 512, "mode": "eager", "iterations_per_rank": 200, "exact": true}
+{"rows": 512, "mode": "graph", "iterations_per_rank": 200, "exact": true}

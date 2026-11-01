@@ -1,0 +1,940 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+========= COMPUTE-SANITIZER
+========= COMPUTE-SANITIZER
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaFuncGetAttributes.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x803a3] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit cudaErrorNoKernelImageForDevice (error 209) due to "no kernel image is available for execution on the device" on CUDA API call to cudaGetLastError.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: ncclInitKernelsForDevice(int, int, unsigned long*) in enqueue.cc:57 [0x804f4] in libnccl.so.2
+=========         Host Frame: ncclCommInitRankFunc(ncclAsyncJob*) in init.cc:1646 [0x9b9a0] in libnccl.so.2
+=========         Host Frame: ncclAsyncJobMain(void*) in group.cc:78 [0x8cc56] in libnccl.so.2
+=========         Host Frame: asyncJobLaunch(ncclIntruQueue<ncclAsyncJob, &ncclAsyncJob::next>*, bool volatile*) in group.cc:454 [0x8e30f] in libnccl.so.2
+=========         Host Frame: groupLaunch(ncclAsyncJob*, ncclSimInfo_v22200*) in group.cc:598 [0x8eb88] in libnccl.so.2
+=========         Host Frame: ncclGroupEndInternal(ncclSimInfo_v22200*) in group.cc:833 [0x909ee] in libnccl.so.2
+=========         Host Frame: pncclCommInitRankConfig in init.cc:2359 [0xa0814] in libnccl.so.2
+=========         Host Frame: c10d::NCCLComm::create(int, int, ncclUniqueId, signed char, ncclConfig_v22800&) [0xf2a0a8] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::initNCCLComm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, c10::Device&, c10d::OpType, int, bool) [0xf6733f] in libtorch_cuda.so
+=========         Host Frame: c10d::ProcessGroupNCCL::eagerConnectSingleDevice(c10::Device) [0xf6927f] in libtorch_cuda.so
+=========         Host Frame: pybind11::cpp_function::initialize<pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}, void, c10d::Backend*, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(pybind11::cpp_function::initialize<void, c10d::Backend, c10::Device, pybind11::name, pybind11::is_method, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(void (c10d::Backend::*)(c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(c10d::Backend*, c10::Device)#1}&&, void (*)(c10d::Backend*, c10::Device), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#1}::_FUN(pybind11::detail::function_call) [0xf69bdf] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: _new_process_group_helper in distributed_c10d.py:2335
+=========         Host Frame: init_process_group in distributed_c10d.py:1899
+=========         Host Frame: wrapper in c10d_logger.py:97
+=========         Host Frame: wrapper in c10d_logger.py:83
+=========         Host Frame: main in fused_exchange_stress.py:94
+========= 
+========= Program hit CUDA_ERROR_NOT_PERMITTED (error 800) due to "operation not permitted" on CUDA API call to cuMemCreate.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: c10::cuda::(anonymous namespace)::isFabricSupported() [0x5a0fd] in libc10_cuda.so
+=========         Host Frame: c10::cuda::get_fabric_access(signed char) [0x5b48a] in libc10_cuda.so
+=========         Host Frame: c10d::symmetric_memory::CUDASymmetricMemoryAllocator::alloc(unsigned long, int, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) [0xfbb75b] in libtorch_cuda.so
+=========         Host Frame: c10d::symmetric_memory::empty_strided_p2p(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>) [0x6753be0] in libtorch_cpu.so
+=========         Host Frame: pybind11::cpp_function::initialize<at::Tensor (*&)(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>), at::Tensor, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::arg, pybind11::arg, pybind11::arg, pybind11::arg, pybind11::arg_v, pybind11::arg_v>(at::Tensor (*&)(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>), at::Tensor (*)(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::arg const&, pybind11::arg const&, pybind11::arg const&, pybind11::arg const&, pybind11::arg_v const&, pybind11::arg_v const&)::{lambda(pybind11::detail::function_call&)#3}::operator()(pybind11::detail::function_call&) const [0xfc2ac4] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: _PyObject_FastCallDictTstate in call.c:133 [0x11d6b6] in python
+=========         Host Frame: slot_tp_init in typeobject.c:9014 [0x157cbb] in python
+=========         Host Frame: _PyObject_MakeTpCall in call.c:240 [0x11aaaa] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: _PyObject_FastCallDictTstate in call.c:133 [0x11d6b6] in python
+=========         Host Frame: slot_tp_init in typeobject.c:9014 [0x157c03] in python
+=========         Host Frame: _PyObject_MakeTpCall in call.c:240 [0x11aaaa] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: empty in __init__.py:1974
+=========         Host Frame: __init__ in fused_exchange.py:23
+=========         Host Frame: __init__ in fused_exchange.py:51
+=========         Host Frame: check_case in fused_exchange_stress.py:18
+=========         Host Frame: main in fused_exchange_stress.py:99
+========= 
+========= Program hit CUDA_ERROR_NOT_PERMITTED (error 800) due to "operation not permitted" on CUDA API call to cuMemCreate.
+=========     Saved host backtrace up to driver entry point at error
+=========         Host Frame: c10::cuda::(anonymous namespace)::isFabricSupported() [0x5a0fd] in libc10_cuda.so
+=========         Host Frame: c10::cuda::get_fabric_access(signed char) [0x5b48a] in libc10_cuda.so
+=========         Host Frame: c10d::symmetric_memory::CUDASymmetricMemoryAllocator::alloc(unsigned long, int, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) [0xfbb75b] in libtorch_cuda.so
+=========         Host Frame: c10d::symmetric_memory::empty_strided_p2p(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>) [0x6753be0] in libtorch_cpu.so
+=========         Host Frame: pybind11::cpp_function::initialize<at::Tensor (*&)(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>), at::Tensor, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::arg, pybind11::arg, pybind11::arg, pybind11::arg, pybind11::arg_v, pybind11::arg_v>(at::Tensor (*&)(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>), at::Tensor (*)(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, c10::Device, std::optional<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, std::optional<unsigned long>), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::arg const&, pybind11::arg const&, pybind11::arg const&, pybind11::arg const&, pybind11::arg_v const&, pybind11::arg_v const&)::{lambda(pybind11::detail::function_call&)#3}::operator()(pybind11::detail::function_call&) const [0xfc2ac4] in libtorch_python.so
+=========         Host Frame: pybind11::cpp_function::dispatcher(_object*, _object* const*, unsigned long, _object*) [0x3f2bb1] in libtorch_python.so
+=========         Host Frame: cfunction_vectorcall_FASTCALL_KEYWORDS in methodobject.c:438 [0x13e76d] in python
+=========         Host Frame: PyObject_Vectorcall in call.c:325 [0x13e500] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: _PyObject_FastCallDictTstate in call.c:133 [0x11d6b6] in python
+=========         Host Frame: slot_tp_init in typeobject.c:9014 [0x157cbb] in python
+=========         Host Frame: _PyObject_MakeTpCall in call.c:240 [0x11aaaa] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: _PyObject_FastCallDictTstate in call.c:133 [0x11d6b6] in python
+=========         Host Frame: slot_tp_init in typeobject.c:9014 [0x157c03] in python
+=========         Host Frame: _PyObject_MakeTpCall in call.c:240 [0x11aaaa] in python
+=========         Host Frame: _PyEval_EvalFrameDefault in bytecodes.c:2706 [0x1256d1] in python
+=========         Host Frame: PyEval_EvalCode in ceval.c:578 [0x1e3c6d] in python
+=========         Host Frame: run_eval_code_obj in pythonrun.c:1722 [0x208dd6] in python
+=========         Host Frame: run_mod in pythonrun.c:1743 [0x204576] in python
+=========         Host Frame: pyrun_file in pythonrun.c:1643 [0x21c1c1] in python
+=========         Host Frame: _PyRun_SimpleFileObject in pythonrun.c:433 [0x21ba5f] in python
+=========         Host Frame: _PyRun_AnyFileObject in pythonrun.c:78 [0x21b7d2] in python
+=========         Host Frame: Py_RunMain in main.c:709 [0x214252] in python
+=========         Host Frame: Py_BytesMain in main.c:763 [0x1cad68] in python
+=========         Host Frame:  [0x29d8f] in libc.so.6
+=========         Host Frame: __libc_start_main [0x29e3f] in libc.so.6
+=========         Host Frame:  [0x1cab98] in python
+=========         Host Frame: empty in __init__.py:1974
+=========         Host Frame: __init__ in fused_exchange.py:23
+=========         Host Frame: __init__ in fused_exchange.py:51
+=========         Host Frame: check_case in fused_exchange_stress.py:18
+=========         Host Frame: main in fused_exchange_stress.py:99
+========= 
+{"rows": 9, "mode": "eager", "iterations_per_rank": 5, "exact": true}
+{"rows": 9, "mode": "graph", "iterations_per_rank": 5, "exact": true}
+{"rows": 129, "mode": "eager", "iterations_per_rank": 5, "exact": true}
+{"rows": 129, "mode": "graph", "iterations_per_rank": 5, "exact": true}
+========= ERROR SUMMARY: 13 errors
+W1101 11:45:20.882000 4291 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 4362 closing signal SIGTERM
+E1101 11:45:20.885000 4291 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: 99) local_rank: 1 (pid: 4363) of binary: /usr/local/cuda/bin/compute-sanitizer
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1032, in <module>
+    main()
+  File "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 367, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1028, in main
+    run(args)
+  File "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1019, in run
+    elastic_launch(
+  File "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 194, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 383, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/usr/local/cuda/bin/compute-sanitizer FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-11-01_11:45:20
+  host      : localhost
+  rank      : 0 (local_rank: 0)
+  exitcode  : -15 (pid: 4362)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 4362
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-11-01_11:45:20
+  host      : localhost
+  rank      : 1 (local_rank: 1)
+  exitcode  : 99 (pid: 4363) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

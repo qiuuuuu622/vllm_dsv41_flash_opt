@@ -1,0 +1,28 @@
+{
+  "torch": "2.13.0+cu130",
+  "torch_cuda": "13.0",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "gpu": [
+    "NVIDIA H20",
+    "NVIDIA H20"
+  ],
+  "driver": "580.65.06\n580.65.06",
+  "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+  "library_sha256": "fe4cd81b5a76b20f392d4ec1161df2ee1ece93b1efa28b9289cf12ab51f924a0",
+  "sources_sha256": {
+    "benchmarks/kernels/head_exchange/__init__.py": "e3c55cbb0d7a8bd47df6f3378835644645f5d3bc89b45793b5d5a02d013e5c58",
+    "benchmarks/kernels/head_exchange/baseline.py": "2cd383fca6899f70d1443118c96fe48e3cad72addd11d034fe0127c27e6510cb",
+    "benchmarks/kernels/head_exchange/benchmark.py": "b44d8e4386b78934881d21ae1f62da13a9d08a8385b04279cb5eed66982a4231",
+    "benchmarks/kernels/head_exchange/summarize.py": "1c01f79ffd61c5b313e03fdfc157bc3ba628b85553de65f9442f12f12c8a825c",
+    "benchmarks/kernels/head_exchange/verify.py": "77002786d1b78e56c632e34665d374c4a794bc0ff3f583cf5d038338ac5ab9b9",
+    "vllm_dsv41_head_exchange/__init__.py": "baeb1ad5f77770874931ec4947840b0346c6861b5aba3bf9195dc8f94f64a5cc",
+    "vllm_dsv41_head_exchange/build.py": "727bb389510c0333728ada8b07eac3eb1f3ab8f34ddf2c7074c572a685e13b7d",
+    "vllm_dsv41_head_exchange/csrc/segment_exchange.cu": "eafbf53e8273d0101f0ff667f10f3c96f3b48729b2e33dd3526fdf4add9efda5",
+    "vllm_dsv41_head_exchange/layout.py": "ab610acb5d319208b92416cc55ff631b409ebedd23b5832d460aad3dc812d3a7",
+    "vllm_dsv41_head_exchange/workspace.py": "d1ab046eb50d74824935602296cf010298e9ca2c98cb3970b45a49a1fa33d3e3"
+  }
+}

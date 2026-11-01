@@ -7,11 +7,14 @@ steps:
   timeout_in_minutes: 85
   device: h100
   source_file_dependencies:
+    - vllm_dsv41_head_exchange/
+    - tests/kernels/head_exchange/
     - vllm/config/attention.py
     - vllm/model_executor/layers/attention
     - vllm/v1/attention
     - tests/v1/attention
   commands:
+    - pytest -c kernels/head_exchange/pytest.ini --confcutdir=kernels/head_exchange kernels/head_exchange -q
     - pytest -v -s v1/attention --shard-id=$$BUILDKITE_PARALLEL_JOB --num-shards=$$BUILDKITE_PARALLEL_JOB_COUNT
   parallelism: 2
   mirror:

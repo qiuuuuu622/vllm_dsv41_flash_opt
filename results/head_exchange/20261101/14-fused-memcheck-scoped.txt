@@ -1,0 +1,8 @@
+========= COMPUTE-SANITIZER
+========= COMPUTE-SANITIZER
+{"rows": 9, "mode": "eager", "iterations_per_rank": 5, "exact": true}
+{"rows": 9, "mode": "graph", "iterations_per_rank": 5, "exact": true}
+{"rows": 129, "mode": "eager", "iterations_per_rank": 5, "exact": true}
+{"rows": 129, "mode": "graph", "iterations_per_rank": 5, "exact": true}
+========= ERROR SUMMARY: 0 errors
+========= ERROR SUMMARY: 0 errors
