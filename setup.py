@@ -1597,6 +1597,14 @@ if _build_custom_ops():
         ext_modules.append(CMakeExtension(name="vllm._moe_C_stable_libtorch"))
 
 package_data = {
+    "vllm_dsv41_indexer": [
+        "csrc/*.cuh",
+        "third_party/ant/**/*.cuh",
+        "third_party/ant/**/*.h",
+        "third_party/ant/LICENSE",
+        "third_party/ant/sources.json",
+        "NOTICE.md",
+    ],
     "vllm_dsv41_head_exchange": ["csrc/*.cu", "csrc/LICENSE", "csrc/NOTICE.md"],
     "vllm": [
         "py.typed",

@@ -1,0 +1,106 @@
+{
+  "status": "fp8_indexer_h20_tested_fp4_baseline_unsupported_compressor_unrun",
+  "ant_commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+  "ant_repository": "https://github.com/antgroup/sglang",
+  "vllm_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+  "files": [
+    {
+      "path": "vendor/ant_wgmma_original.py",
+      "source": "python/sglang/kernels/ops/attention/dsv4/sm90_fp4_indexer_wgmma.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "3737ec388862ee75cb7e10192d7d2c5a51def1dbbc66252e748e0d49d5017b0b"
+    },
+    {
+      "path": "vendor/ant_indexer_original.py",
+      "source": "python/sglang/kernels/ops/attention/dsv4/sm90_fp4_indexer.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "95a62debe464aeb956f0f155a8e418ceacb0ab0a2c46569a584fd5dbfeaa4cb6"
+    },
+    {
+      "path": "snapshots/ant_topk.py",
+      "source": "python/sglang/kernels/ops/attention/dsv4/topk.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "a80fa9df31c07849f00f9560f0840e370175958797a29d207c6e4fe2a9c0847d"
+    },
+    {
+      "path": "snapshots/ant_decode.py",
+      "source": "python/sglang/srt/layers/attention/dsv4/v41_indexer/sm90_decode.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "ba9a57967d720f12cd266a2d74dd9d7b843785572a707bfd186b2c316de06464"
+    },
+    {
+      "path": "snapshots/ant_cp_prefill.py",
+      "source": "python/sglang/srt/models/deepseek_v4_cp_prefill.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "cd983e0f1713ebba244de4b4a2862176359f4a7226eebb119954a0e45709c685"
+    },
+    {
+      "path": "vendor/LICENSE.ant",
+      "source": "LICENSE",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "1495e1e757ef4d0925a2350563cf5754bb23c51701a8ec4fb3c5cdcbedae6747"
+    },
+    {
+      "path": "snapshots/vllm_deep_gemm.py",
+      "source": "vllm/utils/deep_gemm.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "3fae19d459c220d36eb00f1f4818c07fdfe28c0056c5a48dbee9e907a74b0bc8"
+    },
+    {
+      "path": "snapshots/vllm_indexer_topk.py",
+      "source": "vllm/model_executor/layers/indexer_topk.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "4dc91f83043c659304e0f0808bd9082574f919361b0b12f7c87fef5e261469bb"
+    },
+    {
+      "path": "snapshots/vllm_candidate_blocks.py",
+      "source": "vllm/model_executor/kernels/attention/dsa/candidate_blocks.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "45f1eaa3b5f1d9f6a7b554697709646ce41d79d55f2d82415d008e6b00a1136f"
+    },
+    {
+      "path": "snapshots/vllm_attention.py",
+      "source": "vllm/models/deepseek_v41/attention.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "dd146642fc7d7034f32feecf35ff4d7d9460f59a8a57444c0dd6f367fe8f15fb"
+    },
+    {
+      "path": "snapshots/vllm_compressor.py",
+      "source": "vllm/models/deepseek_v41/compressor.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "5807de8cb84b945b088d1f951125e38e0e2ad5581b6ad8de246292782c0e2646"
+    },
+    {
+      "path": "snapshots/vllm_indexer_k_store.py",
+      "source": "vllm/models/deepseek_v41/common/ops/indexer_k_store.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "d89d7043ec7924f1636f8ef257acf5ed0c66687681c7e905ceb16321155360f6"
+    },
+    {
+      "path": "snapshots/vllm_fused_indexer_q.py",
+      "source": "vllm/models/deepseek_v4/common/ops/fused_indexer_q.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "5d27632f3b1fc67a407393221ba06f72a8cbc2a138bc8ee5076423000d56e7eb"
+    },
+    {
+      "path": "vendor/ant_cp_comm_original.py",
+      "source": "python/sglang/srt/layers/communication/cp_prefill_symm.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "60012709c3e34da26c04bfd8640e7f05d89c8033e43b8cdcd8d1782e47047128"
+    },
+    {
+      "path": "snapshots/ant_all_reduce_v2.py",
+      "source": "python/sglang/srt/distributed/device_communicators/custom_all_reduce_v2.py",
+      "commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+      "sha256": "0f0801a3569ba747dce35675e40d7901cfae9e0f6bebf984278d7909a3059868"
+    },
+    {
+      "path": "snapshots/vllm_indexer_backend.py",
+      "source": "vllm/v1/attention/backends/mla/indexer.py",
+      "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "sha256": "aabcb7f2e78b1136072edc87223b0d6e3bbd359b91dda5e1d0c86cba22f98f0e"
+    }
+  ],
+  "model_config_sha256": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+  "ant_runtime_archive_sha256": "fee7bd28c9416020c46a2039b5fe5f7e51235b69d3f7dcda52e515cd4cda8fb3"
+}

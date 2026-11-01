@@ -1,0 +1,22 @@
+{
+  "ant_commit": "6e6d5d9e13915adb01db0856b15d6908eaaa2c48",
+  "remote_directory": "/root/autodl-tmp/dsv41-indexer-64k256k-20261101/prepared",
+  "status": "completed",
+  "case_executions": 36,
+  "score_comparisons": 144,
+  "edge_groups": 75,
+  "baseline": "/root/autodl-tmp/dsv41-kernel-20261101-105936/.venv/lib/python3.12/site-packages",
+  "source_sha256": {
+    "bridge_v2.py": "e4ab12a07ba6b611d69b47c378f6a7e26e3664a6bc97ae0177cef442c982f592",
+    "candidate_publish.cuh": "12459909b06ab40223c38a6c819ba37fdde44e3e6fd7726d7d1a212e57e25525",
+    "indexer_v2_ab.py": "53bcac10215c24a6903b589b4fde87a5bfb9ba7c46d16175e8cd52c4089aa88b",
+    "indexer_stage_probe.py": "d3a58d506887f430bc484f2ed9743ef142d4bdfebbe1c90612601a2953426a44",
+    "indexer_v2_edge_checks.py": "187472d46622763a6f516318850b84881a7b9d3f2876f7409a19ec24fd3ada71",
+    "ant_kernel_runtime.py": "32d93d0d900f93a52df7a42561865d64d7c87c0fcb8b25ceea4ca02e9c5b3155",
+    "ant_candidate_fp8_port.py": "4da898d8dd3fbd8ebc989b5047f7482b02a24673d7eb0fee5e32037c472fe565",
+    "bridge.py": "9faf16652ef5672cc9218f62d299574db916086dda289ca2f671b6af19b944ee",
+    "indexer_fp8_ab.py": "867d156a076843a0b3635290010503869c8dde297cc118183821e76c05ab44de",
+    "common.py": "f5a4f5b5183c4f55ddd79ced7c3f214bae5beeabc75c865f2b8c5e95a46b2c7f",
+    "report_v2.py": "99e02a212bc273968cbadf1abcc8bbbe9bbe0e0fa45fe8db480a919e814f6743"
+  }
+}

@@ -104,7 +104,12 @@ CHECK_IMPORTS = {
         allowed_pattern=re.compile(
             "from vllm.triton_utils import (triton|tl|tl, triton)"
         ),
-        allowed_files={"vllm/triton_utils/importing.py"},
+        allowed_files={
+            "vllm/triton_utils/importing.py",
+            # Standalone SM90 experiment needs Hopper TMA/WGMMA helpers that
+            # triton_utils does not export; its base imports still use the shim.
+            "vllm_dsv41_indexer/score.py",
+        },
     ),
     "tilelang": ForbiddenImport(
         pattern=r"^(from|import)\s+tilelang(\s|\.|$)",
